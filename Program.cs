@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
@@ -75,7 +76,7 @@ namespace yt_dl {
                     @params.Add("--recode-video mp4");
                 } else if (arg == "--open") {
                     openDir = true;
-                } else if (arg == "--no-ffmpeg") {
+                } else if (arg == "--no-ffmpeg" || arg == "--no-add-path") {
                     // just strip this off.
                 } else {
                     @params.Add(arg);
@@ -137,12 +138,29 @@ namespace yt_dl {
             }
         }
 
+        // Add executing directory to user's path so you can just invoke yt-dl from
+        // everywhere.
+        static void AddToPath() {
+            var u = Environment.GetEnvironmentVariable("PATH", EnvironmentVariableTarget.User);
+            var p = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            if (u.Contains(p))
+                return;
+            var sb = new StringBuilder(u);
+            if (!u.EndsWith(";"))
+                sb.Append(";");
+            sb.Append(p);
+            Environment.SetEnvironmentVariable("PATH", sb.ToString(),
+                EnvironmentVariableTarget.User);
+        }
+
         [STAThread]
         static void Main(string[] args) {
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             UpdateYoutubeDl();
-            if (!args.Any(arg => arg == "--no-ffmpeg"))
+            if (!args.Contains("--no-ffmpeg"))
                 EnsureFFmpeg();
+            if (!args.Contains("--no-add-path"))
+                AddToPath();
             RunYoutubeDl(args);
         }
     }

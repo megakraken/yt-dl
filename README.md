@@ -3,7 +3,7 @@ Just a simple front-end for youtube-dl (or rather it's current flavour [yt-dlp](
 
 I have found youtube-dl's update option to be unreliable in the past, so this just checks for the [latest version on GitHub](https://github.com/yt-dlp/yt-dlp/releases) and downloads that if it's newer than the local version. It will also ensure *FFmpeg* exists and if not, automatically download the [latest build from GitHub](https://github.com/BtbN/FFmpeg-Builds/releases).
 
-The first time you run `yt-dl` it will grab the latest version of *yt-dlp* and place it in the same directory as `yt-dl`. On subsequent runs it will check for newer versions and if available, automatically download them.
+The first time you run `yt-dl` it will grab the latest version of *yt-dlp* and place it in the same directory as `yt-dl`. It will also add the contatining directory to the PATH environment variable, so that `yt-dl` can be called from any directory. On subsequent runs `yt-dl` will check for newer versions of *yt-dlp* and if available, automatically download them.
 
 If `yt-dl` is invoked without specifying a URL, it will look for a URL in the clipboard. So you can just right-click copy a URL from your browser's address-bar and run yt-dl to have it downloaded.
 

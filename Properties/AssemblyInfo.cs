@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("yt-dl")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Just a simple front-end for youtube-dl that takes care of updating youtube-dl and downloading FFmpeg etc")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("megakraken")]
 [assembly: AssemblyProduct("yt-dl")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2021")]
+[assembly: AssemblyCopyright("Copyright © megakraken 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
