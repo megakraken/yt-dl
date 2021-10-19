@@ -16,3 +16,4 @@ If `yt-dl` is invoked without specifying a URL, it will look for a URL in the cl
 | `yt-dl --mp4` | Same as above, but converts downloaded video to .mp4 if it isn't already. |
 | `yt-dl --open` | Open explorer window of containing directory when download completed. |
 | `yt-dl --no-ffmpeg` | Don't check for or download *FFmpeg.exe*. |
+| `yt-dl --no-add-path` | Don't add containing directory to the *PATH* environment variable. |
