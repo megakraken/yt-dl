@@ -66,11 +66,13 @@ namespace yt_dl {
         static void RunYoutubeDl(string[] args) {
             var openDir = false;
             var @params = new List<string>() {
-                "--no-check-certificates"
+                "--no-check-certificates",
+                "--no-mtime"
             };
             foreach(var arg in args) {
                 if (arg == "--mp3") {
                     @params.Add("--extract-audio");
+                    @params.Add("--embed-thumbnail");
                     @params.Add("--audio-format mp3");
                 } else if (arg == "--mp4") {
                     @params.Add("--recode-video mp4");
