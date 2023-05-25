@@ -65,6 +65,7 @@ namespace yt_dl {
 
         static void RunYoutubeDl(string[] args) {
             var openDir = false;
+            var pauseOnError = false;
             var @params = new List<string>() {
                 "--no-check-certificates",
                 "--no-mtime"
@@ -75,9 +76,12 @@ namespace yt_dl {
                     @params.Add("--embed-thumbnail");
                     @params.Add("--audio-format mp3");
                 } else if (arg == "--mp4") {
+                    @params.Add("--format-sort res,ext:mp4:m4a");
                     @params.Add("--recode-video mp4");
                 } else if (arg == "--open") {
                     openDir = true;
+                } else if (arg == "--pause-on-error") {
+                    pauseOnError = true;
                 } else if (arg == "--no-ffmpeg" || arg == "--no-add-path") {
                     // just strip this off.
                 } else {
@@ -85,7 +89,8 @@ namespace yt_dl {
                 }
             }
             // If no URL given, try to read it from clipboard.
-            if (args.All(arg => arg.StartsWith("-"))) {
+            if (!@params.Last().StartsWith("http",
+                StringComparison.InvariantCultureIgnoreCase)) {
                 var text = Clipboard.GetText();
                 if (text.StartsWith("http", StringComparison.InvariantCultureIgnoreCase))
                     @params.Add(text);
@@ -105,6 +110,10 @@ namespace yt_dl {
             if (openDir)
                 Process.Start(Directory.GetCurrentDirectory());
             Environment.ExitCode = proc.ExitCode;
+            if (pauseOnError && proc.ExitCode != 0) {
+                Console.WriteLine($"Exitcode {proc.ExitCode}");
+                Console.ReadLine();
+            }
         }
 
         static void EnsureFFmpeg() {
