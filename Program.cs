@@ -132,10 +132,10 @@ namespace yt_dl {
                 dynamic blob = new JavaScriptSerializer().DeserializeObject(
                     wc.DownloadString(releaseUrl)
                 );
-                // Asset we want is named "ffmpeg-N-*-win64-gpl.zip"
+                // Asset we want is named "ffmpeg-master-latest-win64-gpl.zip"
+                var name = "ffmpeg-master-latest-win64-gpl.zip";
                 dynamic[] assets = blob["assets"];
-                var file = assets.FirstOrDefault(a => Regex.IsMatch(a["name"],
-                    @"ffmpeg-N-.+-win64-gpl\.zip"));
+                var file = assets.FirstOrDefault(a => a["name"] == name);
                 if (file == null)
                     throw new Exception("Couldn't find asset in JSON manifest.");
                 using (Stream s = wc.OpenRead(file["browser_download_url"])) {
