@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Windows.Forms;
 
@@ -76,7 +75,7 @@ namespace yt_dl {
                     @params.Add("--embed-thumbnail");
                     @params.Add("--audio-format mp3");
                 } else if (arg == "--mp4") {
-                    @params.Add("--format-sort res,ext:mp4:m4a");
+                    @params.Add("--format-sort res,ext:mp4:m4a,+vcodec:h264");
                     @params.Add("--recode-video mp4");
                 } else if (arg == "--open") {
                     openDir = true;
